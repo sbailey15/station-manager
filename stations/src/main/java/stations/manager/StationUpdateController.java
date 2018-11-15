@@ -26,21 +26,21 @@ public class StationUpdateController {
     @ResponseBody
     public ResponseEntity<String> addStation(@RequestBody Stations stationData) throws IOException {
       
-        stRepository.save(stationData);
+        stRepository.insert(stationData);
         return new ResponseEntity(HttpStatus.CREATED);
     }
     
     @PutMapping(value = "/stations/update{id}")
     @ResponseBody
     public ResponseEntity<String> updateStation(@RequestBody Stations stationData,@PathVariable String id) throws IOException {
-    	Stations updatedStation = stRepository.findAllById(id);
+    	Stations updatedStation = stRepository.findByStationId(id);
     	if (updatedStation != null) {
     		updatedStation.setName(stationData.getName());
     		updatedStation.setHdEnabled(stationData.getHdEnabled());
-    		stRepository.save(updatedStation);
+    		stRepository.update(updatedStation);
     	}else {
     		stationData.setStationId(id);
-    		stRepository.save(stationData);
+    		stRepository.insert(stationData);
     		return new ResponseEntity(HttpStatus.CREATED);
     	}
 
@@ -51,7 +51,7 @@ public class StationUpdateController {
     @ResponseBody
     public ResponseEntity<String> removeStationById(@PathVariable(value = "id") String id) throws IOException {
         
-        stRepository.deleteById(id);
+        stRepository.deleteByStationId(id);
         return new ResponseEntity(HttpStatus.OK);
     }
     
@@ -59,7 +59,7 @@ public class StationUpdateController {
     @ResponseBody
     public ResponseEntity<String> removeStationByName(@PathVariable(value = "name") String name) throws IOException {
       
-        stRepository.deleteByName(name);
+        stRepository.deleteByStationName(name);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

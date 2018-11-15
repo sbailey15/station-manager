@@ -1,34 +1,32 @@
 package stations.manager;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "station")
 public class Stations {
 
-	private @Id @GeneratedValue Long id;
+	private Long id;
 	
-    @Column
     private String stationId;
 
-    @Column
     private String name;
     
-    @Column
     private boolean hdEnabled;
 
     public Stations(String id, String name, boolean hdEnabled) {
+    	super();
     	this.stationId =  id;
     	this.name = name;
     	this.hdEnabled = hdEnabled;
     }
     
+    public Stations(Long id, String stationId, String name, boolean hdEnabled) {
+    	super();
+    	this.id = id;
+    	this.stationId =  stationId;
+    	this.name = name;
+    	this.hdEnabled = hdEnabled;
+    }
+    
     public Stations() {
-    	
+    	super();
     }
     
     public String getStationId() {
