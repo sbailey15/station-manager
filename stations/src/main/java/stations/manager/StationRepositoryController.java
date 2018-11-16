@@ -17,7 +17,7 @@ import java.io.IOException;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-public class StationUpdateController {
+public class StationRepositoryController {
 
     @Autowired
     private StationsRepository stRepository;
@@ -55,7 +55,7 @@ public class StationUpdateController {
         return new ResponseEntity(HttpStatus.OK);
     }
     
-    @DeleteMapping(value = "/stations{name}")
+    @DeleteMapping(value = "/stations/{name}")
     @ResponseBody
     public ResponseEntity<String> removeStationByName(@PathVariable(value = "name") String name) throws IOException {
       

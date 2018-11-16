@@ -38,41 +38,40 @@ public class StationsQueryControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+    
+    //@Autowired
+	//private StationsRepository repository;
 
     
     @Test
     public void paramIdShouldReturnStationWithId() throws Exception {
-    	
-    	Stations st = new Stations();
-    	st.setStationId("iheart101");
+    	String stationId = "iheart101";
 
-        this.mockMvc.perform(get("/stationId").param("id", "iheart101"))
+        this.mockMvc.perform(get("/stationId").param("id", stationId))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("id", is(st.getStationId())));
+                .andExpect(jsonPath("id", is(stationId)));
         
     }
     
     @Test
     public void paramNameShouldReturnStationWithName() throws Exception {
     	
-    	Stations st = new Stations();
-    	st.setName("iheartCountry");
+    	String stationName = "iheartRock";
+    	String stationId = "iheart102";
 
-        this.mockMvc.perform(get("/stationName").param("name", "iheartCountry"))
+        this.mockMvc.perform(get("/stationName").param("name", stationName))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("name", is(st.getName())));
+                .andExpect(jsonPath("id", is(stationId)));
     }
     
     @Test
     public void noParamReturnHdStations() throws Exception {
-    	
-    	Stations st = new Stations();
-    	st.setName("iheart");
+    	String stationId = "iheart101";
 
         this.mockMvc.perform(get("/hdEnabled"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name",is(st.getName())));
+                .andExpect(jsonPath("$[0].id",is(stationId)));
     }
 
 }

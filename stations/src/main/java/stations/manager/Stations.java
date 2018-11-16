@@ -2,7 +2,7 @@ package stations.manager;
 
 public class Stations {
 
-	private Long id;
+	private int id;
 	
     private String stationId;
 
@@ -17,7 +17,7 @@ public class Stations {
     	this.hdEnabled = hdEnabled;
     }
     
-    public Stations(Long id, String stationId, String name, boolean hdEnabled) {
+    public Stations(int id, String stationId, String name, boolean hdEnabled) {
     	super();
     	this.id = id;
     	this.stationId =  stationId;
@@ -29,6 +29,11 @@ public class Stations {
     	super();
     }
     
+    public int getId() {
+    	return id;
+    }
+    
+    
     public String getStationId() {
         return stationId;
     }
@@ -39,6 +44,10 @@ public class Stations {
     
     public boolean getHdEnabled() {
     	return hdEnabled;
+    }
+    
+    public void setId(int id) {
+    	this.id = id;
     }
 
     public void setStationId(String id) {

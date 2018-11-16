@@ -56,7 +56,7 @@ dependencies {
 	runtimeOnly('com.h2database:h2')
     //compile group: 'org.springframework', name: 'spring-core'
     //compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
-    //compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     //compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
