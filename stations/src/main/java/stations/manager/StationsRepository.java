@@ -14,31 +14,28 @@ public interface StationsRepository {
 	@Select("select * from stations")
 	public List<Stations> findAll();
 	
-	@Select("select * from stations WHERE hd_enabled")
+	@Select("select * from stations WHERE hdEnabled")
 	public List<Stations> findAllHdEnabled();
 
-	@Select("SELECT * FROM stations WHERE id = #{id}")
-	public Stations findById(long id);
-
-	@Delete("DELETE FROM stations WHERE id = #{id}")
+	@Delete("DELETE FROM stations WHERE stationId = #{stationId}")
 	public int deleteById(long id);
 	
-	@Select("SELECT * FROM stations WHERE station_id = #{id}")
+	@Select("SELECT * FROM stations WHERE stationId = #{stationId}")
 	public Stations findByStationId(String id);
 
-	@Delete("DELETE FROM stations WHERE staton_id = #{id}")
+	@Delete("DELETE FROM stations WHERE stationId = #{stationId}")
 	public int deleteByStationId(String id);
 	
-	@Select("SELECT * FROM stations WHERE station_name = #{name}")
+	@Select("SELECT * FROM stations WHERE name = #{name}")
 	public Stations findByStationName(String name);
 
-	@Delete("DELETE FROM stations WHERE stations_name = #{name}")
+	@Delete("DELETE FROM stations WHERE name = #{name}")
 	public int deleteByStationName(String name);
 
-	@Insert("INSERT INTO stations(id, station_id, station_name, hd_enabled) VALUES (#{id}, #{stationId}, #{stationName}, #{hdEnabked})")
+	@Insert("INSERT INTO stations(stationId, name, hdEnabled) VALUES (#{stationId}, #{name}, #{hdEnabled})")
 	public int insert(Stations station);
 
-	@Update("Update stations set name=#{name}, passport=#{passport} where id=#{id}")
+	@Update("Update stations set name=#{name}, stationId=#{stationId}, hdEnabled=#{hdEnabled} where stationId=#{stationId}")
 	public int update(Stations station);
 
 }

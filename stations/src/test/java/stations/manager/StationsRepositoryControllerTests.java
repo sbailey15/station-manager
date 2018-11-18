@@ -1,10 +1,7 @@
 package stations.manager;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
@@ -33,8 +30,6 @@ public class StationsRepositoryControllerTests {
     @Autowired
     private MockMvc mockMvc;
     
-    //@Autowired
-	//private StationsRepository repository;
 
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
     
@@ -47,12 +42,12 @@ public class StationsRepositoryControllerTests {
     @Test
     public void addStationReturnCreated() throws Exception {
     	
-    	Stations st = new Stations();
-    	st.setStationId("iheart101");
-
-        this.mockMvc.perform(get("/stationId").param("id", "iheart101"))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("id", is(st.getStationId())));
+    	Stations st = new Stations("iheart103","iheartPop",false);
+        
+        this.mockMvc.perform(post("/stations/add")
+                .contentType(StationsRepositoryControllerTests.APPLICATION_JSON_UTF8)
+                .content(StationsRepositoryControllerTests.convertObjectToJsonBytes(st)))
+                .andExpect(status().isCreated());
         
     }
     
@@ -60,11 +55,19 @@ public class StationsRepositoryControllerTests {
     public void updateStationReturnOk() throws Exception {
     	
     	Stations st = new Stations();
-    	st.setStationId("iheart101");
+    	st.setStationId("iheart1014");
+    	st.setName("iheartChristmas107");
+    	st.setHdEnabled(true);
+    	
+    	this.mockMvc.perform(post("/stations/add")
+                .contentType(StationsRepositoryControllerTests.APPLICATION_JSON_UTF8)
+                .content(StationsRepositoryControllerTests.convertObjectToJsonBytes(st)))
+                .andExpect(status().isCreated());
 
-        this.mockMvc.perform(get("/stationId").param("id", "iheart101"))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("id", is(st.getStationId())));
+    	this.mockMvc.perform(put("/stations/update{id}",st.getStationId())
+                .contentType(StationsRepositoryControllerTests.APPLICATION_JSON_UTF8)
+                .content(StationsRepositoryControllerTests.convertObjectToJsonBytes(st)))
+                .andExpect(status().isOk());
         
     }
     
@@ -74,7 +77,7 @@ public class StationsRepositoryControllerTests {
     	String stationName = "iheartCountry";
     	
     	this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/stations/{name}", stationName)
+                .delete("/stationsName/delete{name}", stationName)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -85,12 +88,10 @@ public class StationsRepositoryControllerTests {
     @Test
     public void deleteStationWithId() throws Exception {
     	
-    	String stationId = "iheart102";
+    	String stationId = "iheart101";
     	
     	this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/stations/{id}", stationId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                .delete("/stationsId/delete{id}", stationId))
                 .andExpect(status().isOk());
 
     }

@@ -1,6 +1,5 @@
 package stations.manager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +8,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 @RestController
 public class StationsQueryController {
 
-    private static final String template = "%s";
 
     @Autowired
     private StationsRepository stRepository;
     
     @RequestMapping("/stationId")
-	public Stations getStationById(@RequestParam(value="id",defaultValue="iheart")String id) {
-		Stations st = stRepository.findByStationId(id);
+	public Stations getStationById(@RequestParam(value="id",defaultValue="iheart")String stationId) {
+		Stations st = stRepository.findByStationId(stationId);
     	return st;
 
 	}

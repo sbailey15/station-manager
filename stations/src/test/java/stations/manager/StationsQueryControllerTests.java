@@ -39,8 +39,6 @@ public class StationsQueryControllerTests {
     @Autowired
     private MockMvc mockMvc;
     
-    //@Autowired
-	//private StationsRepository repository;
 
     
     @Test
@@ -49,7 +47,7 @@ public class StationsQueryControllerTests {
 
         this.mockMvc.perform(get("/stationId").param("id", stationId))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("id", is(stationId)));
+                .andExpect(jsonPath("stationId", is(stationId)));
         
     }
     
@@ -61,7 +59,7 @@ public class StationsQueryControllerTests {
 
         this.mockMvc.perform(get("/stationName").param("name", stationName))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("id", is(stationId)));
+                .andExpect(jsonPath("stationId", is(stationId)));
     }
     
     @Test
@@ -71,7 +69,7 @@ public class StationsQueryControllerTests {
         this.mockMvc.perform(get("/hdEnabled"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].id",is(stationId)));
+                .andExpect(jsonPath("$[0].stationId",is(stationId)));
     }
 
 }
